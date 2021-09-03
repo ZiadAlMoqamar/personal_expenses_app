@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:personal_expenses_app/classes/transaction.dart';
 import 'package:intl/intl.dart';
 
-class myListTile extends StatelessWidget {
+class MyListTile extends StatelessWidget {
   final Transaction transaction;
-  myListTile({required this.transaction});
+  MyListTile({required this.transaction});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,13 @@ class myListTile extends StatelessWidget {
         leading: CircleAvatar(
           radius: 30,
           backgroundColor: Theme.of(context).primaryColor,
-          child: Text("\$${transaction.cost}",
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+          child: FittedBox(
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Text("\$${transaction.cost}",
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+            ),
+          ),
         ),
         title: Text(
           transaction.title,

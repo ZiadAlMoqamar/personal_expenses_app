@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:personal_expenses_app/classes/transaction.dart';
+import 'package:personal_expenses_app/components/newTransaction.dart';
+import 'package:personal_expenses_app/components/userTransactions.dart';
 import 'components/myListTile.dart';
 
 void main() {
@@ -30,10 +33,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Transaction> transactions = [
+  final List<Transaction> transactions = [
     Transaction(id: 1, title: "New Shoes", cost: 93.2, time: DateTime.now()),
     Transaction(id: 2, title: "phone", cost: 150.2, time: DateTime.now())
   ];
+
+  void addingTransaction(Transaction tx) {
+    setState(() {
+      transactions.add(tx);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,15 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.circular(10)),
             ),
           ),
-          Expanded(
-            child: ListView(
-              children: transactions
-                  .map((tx) => myListTile(
-                        transaction: tx,
-                      ))
-                  .toList(),
-            ),
-          )
+          NewTransaction(
+              transactions: transactions, addingTransaction: addingTransaction),
+          UserTransactionsList(transactions: transactions)
         ],
       ),
       floatingActionButton: FloatingActionButton(
