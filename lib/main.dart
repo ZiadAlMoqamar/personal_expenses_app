@@ -44,6 +44,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void triggerModalBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return GestureDetector(
+            onTap: (){},
+            behavior: HitTestBehavior.opaque,
+            child: NewTransaction(
+                transactions: transactions, addingTransaction: addingTransaction),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => print('d'),
+            onPressed: () => triggerModalBottomSheet(),
           ),
         ],
       ),
@@ -71,17 +84,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.circular(10)),
             ),
           ),
-          NewTransaction(
-              transactions: transactions, addingTransaction: addingTransaction),
           UserTransactionsList(transactions: transactions)
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => print('d'),
+        onPressed: () => triggerModalBottomSheet(),
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
