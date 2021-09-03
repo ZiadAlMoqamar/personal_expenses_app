@@ -29,7 +29,7 @@ class MyListTile extends StatelessWidget {
           child: FittedBox(
             child: Container(
               padding: EdgeInsets.all(5),
-              child: Text("\$${transaction.cost}",
+              child: Text("\$${transaction.cost.toStringAsFixed(2)}",
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
             ),
           ),
