@@ -16,8 +16,22 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
+          primarySwatch: Colors.indigo,
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              )),
+          appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+          )),
       home: MyHomePage(title: 'Personal Expenses'),
     );
   }
@@ -49,10 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
         context: context,
         builder: (_) {
           return GestureDetector(
-            onTap: (){},
+            onTap: () {},
             behavior: HitTestBehavior.opaque,
             child: NewTransaction(
-                transactions: transactions, addingTransaction: addingTransaction),
+                transactions: transactions,
+                addingTransaction: addingTransaction),
           );
         });
   }

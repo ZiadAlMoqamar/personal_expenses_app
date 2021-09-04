@@ -36,7 +36,7 @@ class MyListTile extends StatelessWidget {
         ),
         title: Text(
           transaction.title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(DateFormat().format(transaction.time)),
         trailing: IconButton(
