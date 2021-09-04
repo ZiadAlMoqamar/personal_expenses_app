@@ -20,7 +20,7 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = titleController.text;
     final enteredPrice = double.parse(priceController.text);
 
-    if(enteredTitle.isEmpty || enteredPrice <= 0){
+    if (enteredTitle.isEmpty || enteredPrice <= 0) {
       return;
     }
     widget.addingTransaction(Transaction(
@@ -28,6 +28,9 @@ class _NewTransactionState extends State<NewTransaction> {
         cost: enteredPrice,
         time: DateTime.now(),
         id: widget.transactions.length + 1));
+
+    //to close the modal bottom sheet after submitting new transaction
+    Navigator.of(context).pop();
   }
 
   @override
