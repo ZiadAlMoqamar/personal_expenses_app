@@ -3,7 +3,6 @@ import 'package:personal_expenses_app/classes/transaction.dart';
 import 'package:personal_expenses_app/components/newTransaction.dart';
 import 'package:personal_expenses_app/components/userTransactions.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -59,6 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void triggerModalBottomSheet() {
     showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
+        ),
+        backgroundColor: Colors.white,
         context: context,
         builder: (_) {
           return GestureDetector(
