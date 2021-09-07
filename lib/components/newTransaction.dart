@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../classes/transaction.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addingTransaction;
@@ -13,8 +14,8 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
   final priceController = TextEditingController();
+  DateTime? selectedDate = null;
 
   void submitData() {
     final enteredTitle = titleController.text;
@@ -26,11 +27,27 @@ class _NewTransactionState extends State<NewTransaction> {
     widget.addingTransaction(Transaction(
         title: enteredTitle,
         cost: enteredPrice,
-        time: DateTime.now(),
+        time: selectedDate!,
         id: widget.transactions.length + 1));
 
     //to close the modal bottom sheet after submitting new transaction
     Navigator.of(context).pop();
+  }
+
+  void openDatePicker() {
+    showDatePicker(
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2021),
+            context: context,
+            lastDate: DateTime.now())
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -53,7 +70,19 @@ class _NewTransactionState extends State<NewTransaction> {
             controller: priceController,
             keyboardType: TextInputType.number,
             // _ means that I don't use it
-            onSubmitted: (_) => submitData(),
+            //onSubmitted: (_) => submitData(),
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: Text(
+                selectedDate == null
+                    ? 'No date is chosen yet'
+                    : 'Picked Date: ${DateFormat.yMd().format(selectedDate!)}',
+                
+              )),
+              TextButton(onPressed: openDatePicker, child: Text('Choose Date',style: TextStyle(fontWeight: FontWeight.bold)))
+            ],
           ),
           ElevatedButton(
             onPressed: submitData,
