@@ -47,14 +47,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> transactions = [
-    // Transaction(id: 1, title: "New Shoes", cost: 93.2, time: DateTime.now()),
-    // Transaction(id: 2, title: "phone", cost: 150.2, time: DateTime.now())
-  ];
+  final List<Transaction> transactions = [];
 
   void addingTransaction(Transaction tx) {
     setState(() {
       transactions.add(tx);
+    });
+  }
+
+  void deleteTransaction(int id) {
+    setState(() {
+      transactions.removeWhere((element) => element.id==id);
     });
   }
 
@@ -107,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           ChartsCard(transactions: _userRecentTransactions),
-          UserTransactionsList(transactions: transactions)
+          UserTransactionsList(transactions: transactions, deleteTx: deleteTransaction,)
         ],
       ),
       floatingActionButton: FloatingActionButton(

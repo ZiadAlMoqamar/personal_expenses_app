@@ -4,7 +4,8 @@ import 'myListTile.dart';
 
 class UserTransactionsList extends StatefulWidget {
   final List<Transaction> transactions;
-  UserTransactionsList({required this.transactions});
+  final Function deleteTx;
+  UserTransactionsList({required this.transactions, required this.deleteTx});
 
   @override
   _UserTransactionsListState createState() => _UserTransactionsListState();
@@ -33,7 +34,7 @@ class _UserTransactionsListState extends State<UserTransactionsList> {
               )
             : ListView.builder(
                 itemBuilder: (ctx, index) {
-                  return MyListTile(transaction: widget.transactions[index]);
+                  return MyListTile(transaction: widget.transactions[index], deleteTx: widget.deleteTx,);
                 },
                 itemCount: widget.transactions.length,
               ));

@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 
 class MyListTile extends StatelessWidget {
   final Transaction transaction;
-  MyListTile({required this.transaction});
+  final Function deleteTx;
+  MyListTile({required this.transaction, required this.deleteTx});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class MyListTile extends StatelessWidget {
             Icons.delete,
             color: Colors.red,
           ),
-          onPressed: () => print('delete'),
+          onPressed: () => deleteTx(transaction.id),
         ),
         tileColor: Colors.white,
         shape:

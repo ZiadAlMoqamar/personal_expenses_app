@@ -79,9 +79,11 @@ class _NewTransactionState extends State<NewTransaction> {
                 selectedDate == null
                     ? 'No date is chosen yet'
                     : 'Picked Date: ${DateFormat.yMd().format(selectedDate!)}',
-                
               )),
-              TextButton(onPressed: openDatePicker, child: Text('Choose Date',style: TextStyle(fontWeight: FontWeight.bold)))
+              TextButton(
+                  onPressed: openDatePicker,
+                  child: Text('Choose Date',
+                      style: TextStyle(fontWeight: FontWeight.bold)))
             ],
           ),
           ElevatedButton(
