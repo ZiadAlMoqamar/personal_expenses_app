@@ -38,8 +38,8 @@ class _NewTransactionState extends State<NewTransaction> {
     return Card(
       margin: EdgeInsets.only(
         top: 15,
-        right: 5,
-        left: 5,
+        right: 8,
+        left: 8,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

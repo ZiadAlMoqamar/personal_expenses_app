@@ -16,18 +16,19 @@ class MyApp extends StatelessWidget {
       title: 'personal Expenses',
       theme: ThemeData(
           primarySwatch: Colors.indigo,
+          buttonColor: Colors.white,
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
                   headline6: TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 15,
               )),
           appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
                   headline6: TextStyle(
                       fontFamily: 'OpenSans',
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
           )),

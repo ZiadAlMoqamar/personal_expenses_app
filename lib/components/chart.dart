@@ -1,21 +1,28 @@
+
+
 import 'package:flutter/material.dart';
 
 class Chart extends StatelessWidget {
   final String title;
   final double totalSpending;
+  final String dayDate;
   final double spendingToWeekRatio;
 
   Chart(
       {required this.title,
       required this.totalSpending,
+      required this.dayDate,
       required this.spendingToWeekRatio});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FittedBox(
-          child: Text('\$${totalSpending.toStringAsFixed(0)}'),
+        Container(
+          height: 20,
+          child: FittedBox(
+            child: Text('\$${totalSpending.toStringAsFixed(0)}',style: Theme.of(context).textTheme.subtitle1),
+          ),
         ),
         SizedBox(
           height: 4,
@@ -47,7 +54,11 @@ class Chart extends StatelessWidget {
         SizedBox(
           height: 4,
         ),
-        Text(title)
+        Text(title, style: Theme.of(context).textTheme.bodyText2,),
+        SizedBox(
+          height: 4,
+        ),
+        Text(dayDate, style: Theme.of(context).textTheme.caption,),
       ],
     );
   }

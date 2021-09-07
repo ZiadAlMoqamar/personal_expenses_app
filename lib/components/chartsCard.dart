@@ -23,8 +23,11 @@ class ChartsCard extends StatelessWidget {
         }
       }
       return ChartData(
-          title: DateFormat.E().format(weekDay), totalSpending: totalSum);
-    });
+        title: DateFormat.E().format(weekDay),
+        totalSpending: totalSum,
+        dayDate: DateFormat.Md().format(weekDay),
+      );
+    }).reversed.toList();
   }
 
   double get totalWeekSpending {
@@ -36,7 +39,7 @@ class ChartsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      height: 150,
+      height: 175,
       width: double.infinity,
       child: Card(
         elevation: 5,
@@ -53,6 +56,7 @@ class ChartsCard extends StatelessWidget {
                     child: Chart(
                         title: e.title,
                         totalSpending: e.totalSpending,
+                        dayDate: e.dayDate,
                         spendingToWeekRatio: totalWeekSpending == 0
                             ? 0.0
                             : e.totalSpending / totalWeekSpending),

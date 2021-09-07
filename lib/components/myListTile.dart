@@ -30,15 +30,15 @@ class MyListTile extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(5),
               child: Text("\$${transaction.cost.toStringAsFixed(2)}",
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, fontFamily: 'OpenSans')),
             ),
           ),
         ),
         title: Text(
           transaction.title,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.headline6
         ),
-        subtitle: Text(DateFormat().format(transaction.time)),
+        subtitle: Text(DateFormat.yMMMd().format(transaction.time),style: Theme.of(context).textTheme.bodyText2,),
         trailing: IconButton(
           icon: Icon(
             Icons.delete,
