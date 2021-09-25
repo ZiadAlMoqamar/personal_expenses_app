@@ -93,12 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
         )
         .toList();
   }
-
+ 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
+     final appBar = AppBar(
         title: Text(widget.title),
         actions: [
           IconButton(
@@ -106,12 +104,17 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => triggerModalBottomSheet(),
           ),
         ],
-      ),
-      body: Column(
-        children: [
-          ChartsCard(transactions: _userRecentTransactions),
-          UserTransactionsList(transactions: transactions, deleteTx: deleteTransaction,)
-        ],
+      );
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      appBar:appBar,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(child: ChartsCard(transactions: _userRecentTransactions), height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,),
+            Container(child: UserTransactionsList(transactions: transactions, deleteTx: deleteTransaction,),height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,)
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

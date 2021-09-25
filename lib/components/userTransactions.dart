@@ -14,29 +14,28 @@ class UserTransactionsList extends StatefulWidget {
 class _UserTransactionsListState extends State<UserTransactionsList> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: widget.transactions.isEmpty
-            ? Column(
-                children: [
-                  Text(
-                    'No transactions added yet!',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  SizedBox(height: 10,),
-                  Container(
-                    height: 200,
-                    child: Image.asset(
-                      'assets/images/waiting.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ],
-              )
-            : ListView.builder(
-                itemBuilder: (ctx, index) {
-                  return MyListTile(transaction: widget.transactions[index], deleteTx: widget.deleteTx,);
-                },
-                itemCount: widget.transactions.length,
-              ));
+    return widget.transactions.isEmpty
+        ? Column(
+            children: [
+              Text(
+                'No transactions added yet!',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(height: 10,),
+              Container(
+                height: MediaQuery.of(context).size.height *0.4,
+                child: Image.asset(
+                  'assets/images/waiting.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          )
+        : ListView.builder(
+            itemBuilder: (ctx, index) {
+              return MyListTile(transaction: widget.transactions[index], deleteTx: widget.deleteTx,);
+            },
+            itemCount: widget.transactions.length,
+          );
   }
 }

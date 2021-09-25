@@ -37,33 +37,28 @@ class ChartsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      height: 175,
-      width: double.infinity,
-      child: Card(
-        elevation: 5,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: chartsItemsList
-                .map(
-                  (e) => Flexible(
-                    fit: FlexFit.tight,
-                    child: Chart(
-                        title: e.title,
-                        totalSpending: e.totalSpending,
-                        dayDate: e.dayDate,
-                        spendingToWeekRatio: totalWeekSpending == 0
-                            ? 0.0
-                            : e.totalSpending / totalWeekSpending),
-                  ),
-                )
-                .toList(),
-          ),
+    return Card(
+      elevation: 5,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: chartsItemsList
+              .map(
+                (e) => Flexible(
+                  fit: FlexFit.tight,
+                  child: Chart(
+                      title: e.title,
+                      totalSpending: e.totalSpending,
+                      dayDate: e.dayDate,
+                      spendingToWeekRatio: totalWeekSpending == 0
+                          ? 0.0
+                          : e.totalSpending / totalWeekSpending),
+                ),
+              )
+              .toList(),
         ),
       ),
     );
