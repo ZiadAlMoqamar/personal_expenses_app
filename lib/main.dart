@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:personal_expenses_app/classes/transaction.dart';
 import 'package:personal_expenses_app/components/chartsCard.dart';
 import 'package:personal_expenses_app/components/newTransaction.dart';
 import 'package:personal_expenses_app/components/userTransactions.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MyApp());
 }
 
@@ -57,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void deleteTransaction(int id) {
     setState(() {
-      transactions.removeWhere((element) => element.id==id);
+      transactions.removeWhere((element) => element.id == id);
     });
   }
 
@@ -93,26 +97,41 @@ class _MyHomePageState extends State<MyHomePage> {
         )
         .toList();
   }
- 
+
   @override
   Widget build(BuildContext context) {
-     final appBar = AppBar(
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => triggerModalBottomSheet(),
-          ),
-        ],
-      );
+    final appBar = AppBar(
+      title: Text(widget.title),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => triggerModalBottomSheet(),
+        ),
+      ],
+    );
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar:appBar,
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(child: ChartsCard(transactions: _userRecentTransactions), height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,),
-            Container(child: UserTransactionsList(transactions: transactions, deleteTx: deleteTransaction,),height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,)
+            Container(
+              child: ChartsCard(transactions: _userRecentTransactions),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+            ),
+            Container(
+              child: UserTransactionsList(
+                transactions: transactions,
+                deleteTx: deleteTransaction,
+              ),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.7,
+            )
           ],
         ),
       ),
