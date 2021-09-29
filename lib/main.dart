@@ -57,6 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void addingTransaction(Transaction tx) {
     setState(() {
       transactions.add(tx);
+      transactions.sort((a,b)=>b.time.compareTo(a.time));
+      
     });
   }
 
@@ -157,22 +159,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!isLandscape) txListWidget,
             if (isLandscape && showChart)
-              
-                  Container(
-                      child: ChartsCard(transactions: _userRecentTransactions),
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.6,
-                    )
-                  , txListWidget
+              Container(
+                child: ChartsCard(transactions: _userRecentTransactions),
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.6,
+              ),
+            txListWidget
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => triggerModalBottomSheet(),
-      ),
+      floatingActionButton: !isLandscape
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => triggerModalBottomSheet(),
+            )
+          : Container(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
