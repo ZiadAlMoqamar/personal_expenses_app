@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_expenses_app/components/adaptiveFlatButton.dart';
 import '../classes/transaction.dart';
 import 'package:intl/intl.dart';
 
@@ -89,16 +90,11 @@ class _NewTransactionState extends State<NewTransaction> {
                         ? 'No date is chosen yet'
                         : 'Picked Date: ${DateFormat.yMd().format(selectedDate!)}',
                   )),
-                  TextButton(
-                      onPressed: openDatePicker,
-                      child: Text('Choose Date',
-                          style: TextStyle(fontWeight: FontWeight.bold)))
+                  AdaptiveFlatButton(
+                      text: 'Choose Date', handler: openDatePicker)
                 ],
               ),
-              ElevatedButton(
-                onPressed: submitData,
-                child: Text('Add Transaction'),
-              )
+              AdaptiveFlatButton(text: 'Add Transaction', handler: submitData)
             ],
           ),
         ),
