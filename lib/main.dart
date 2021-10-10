@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:personal_expenses_app/classes/transaction.dart';
 import 'package:personal_expenses_app/components/chartsCard.dart';
 import 'package:personal_expenses_app/components/newTransaction.dart';
@@ -106,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
 
-    final appBar = AppBar(
+    final PreferredSizeWidget appBar = AppBar(
       title: Text(widget.title),
       actions: [
         IconButton(
@@ -115,6 +119,20 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+    final IOSAppBar = CupertinoNavigationBar(
+            middle: Text(
+              'Personal Expenses',
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                GestureDetector(
+                  child: Icon(CupertinoIcons.add),
+                  onTap: () => triggerModalBottomSheet(),
+                ),
+              ],
+            ),
+          );
     final txListWidget = Container(
       child: UserTransactionsList(
         transactions: transactions,
@@ -127,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: appBar,
+      appBar: Platform.isIOS ? IOSAppBar : appBar,
       body: SingleChildScrollView(
         child: Column(
           children: [
