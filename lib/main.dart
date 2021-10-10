@@ -61,8 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void addingTransaction(Transaction tx) {
     setState(() {
       transactions.add(tx);
-      transactions.sort((a,b)=>b.time.compareTo(a.time));
-      
+      transactions.sort((a, b) => b.time.compareTo(a.time));
     });
   }
 
@@ -120,19 +119,19 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
     final IOSAppBar = CupertinoNavigationBar(
-            middle: Text(
-              'Personal Expenses',
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                GestureDetector(
-                  child: Icon(CupertinoIcons.add),
-                  onTap: () => triggerModalBottomSheet(),
-                ),
-              ],
-            ),
-          );
+      middle: Text(
+        'Personal Expenses',
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          GestureDetector(
+            child: Icon(CupertinoIcons.add),
+            onTap: () => triggerModalBottomSheet(),
+          ),
+        ],
+      ),
+    );
     final txListWidget = Container(
       child: UserTransactionsList(
         transactions: transactions,
@@ -143,10 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
               mediaQuery.padding.top) *
           0.7,
     );
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: Platform.isIOS ? IOSAppBar : appBar,
-      body: SingleChildScrollView(
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             if (isLandscape)
@@ -188,13 +185,25 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: !isLandscape
-          ? FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => triggerModalBottomSheet(),
-            )
-          : Container(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+          backgroundColor: Colors.grey[200],
+            child: pageBody,
+            navigationBar: IOSAppBar,
+          )
+        : Scaffold(
+            backgroundColor: Colors.grey[200],
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButton: !isLandscape
+                ? FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => triggerModalBottomSheet(),
+                  )
+                : Container(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          );
   }
 }
