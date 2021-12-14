@@ -149,6 +149,11 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  Widget _buildPage(CupertinoPageScaffold iosPage, Scaffold androidPage){
+   return Platform.isIOS
+        ? iosPage
+        : androidPage;
+  }
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -163,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
-    final IOSAppBar = CupertinoNavigationBar(
+    final iosAppBar = CupertinoNavigationBar(
       middle: Text(
         'Personal Expenses',
       ),
@@ -198,13 +203,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-    return Platform.isIOS
-        ? CupertinoPageScaffold(
+    final CupertinoPageScaffold iosPage =CupertinoPageScaffold(
             backgroundColor: Colors.grey[200],
             child: pageBody,
-            navigationBar: IOSAppBar,
-          )
-        : Scaffold(
+            navigationBar: iosAppBar,
+          );
+    final Scaffold androidPage =Scaffold(
             backgroundColor: Colors.grey[200],
             appBar: appBar,
             body: pageBody,
@@ -217,5 +221,6 @@ class _MyHomePageState extends State<MyHomePage> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
+    return _buildPage(iosPage, androidPage);
   }
 }
