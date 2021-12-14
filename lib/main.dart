@@ -103,7 +103,25 @@ class _MyHomePageState extends State<MyHomePage> {
         )
         .toList();
   }
-
+  Widget _buildLandscapeContent(){
+    return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Show Chart',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Switch.adaptive(
+                      activeColor: Theme.of(context).accentColor,
+                      value: showChart,
+                      onChanged: (val) {
+                        setState(() {
+                          showChart = val;
+                        });
+                      })
+                ],
+              );
+  }
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -147,23 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Show Chart',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Switch.adaptive(
-                      activeColor: Theme.of(context).accentColor,
-                      value: showChart,
-                      onChanged: (val) {
-                        setState(() {
-                          showChart = val;
-                        });
-                      })
-                ],
-              ),
+              _buildLandscapeContent(),
             if (!isLandscape)
               Container(
                 child: ChartsCard(transactions: _userRecentTransactions),
