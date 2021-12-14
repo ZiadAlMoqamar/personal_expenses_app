@@ -103,25 +103,52 @@ class _MyHomePageState extends State<MyHomePage> {
         )
         .toList();
   }
-  Widget _buildLandscapeContent(){
-    return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Show Chart',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Switch.adaptive(
-                      activeColor: Theme.of(context).accentColor,
-                      value: showChart,
-                      onChanged: (val) {
-                        setState(() {
-                          showChart = val;
-                        });
-                      })
-                ],
-              );
+
+  List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget txListWidget) {
+    return [Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Show Chart',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        Switch.adaptive(
+            activeColor: Theme.of(context).accentColor,
+            value: showChart,
+            onChanged: (val) {
+              setState(() {
+                showChart = val;
+              });
+            })
+      ],
+    ),
+    if(showChart)   Container(
+                child: ChartsCard(transactions: _userRecentTransactions),
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.6,
+              ),
+             txListWidget
+            
+    ];
   }
+
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget txListWidget) {
+    return [
+      Container(
+        child: ChartsCard(transactions: _userRecentTransactions),
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.3,
+      ),
+      txListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -164,33 +191,16 @@ class _MyHomePageState extends State<MyHomePage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            if (isLandscape)
-              _buildLandscapeContent(),
+            if (isLandscape) ..._buildLandscapeContent(mediaQuery, appBar, txListWidget),
             if (!isLandscape)
-              Container(
-                child: ChartsCard(transactions: _userRecentTransactions),
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.3,
-              ),
-            if (!isLandscape) txListWidget,
-            if (isLandscape && showChart)
-              Container(
-                child: ChartsCard(transactions: _userRecentTransactions),
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.6,
-              ),
-            txListWidget
+              ..._buildPortraitContent(mediaQuery, appBar, txListWidget),        
           ],
         ),
       ),
     );
     return Platform.isIOS
         ? CupertinoPageScaffold(
-          backgroundColor: Colors.grey[200],
+            backgroundColor: Colors.grey[200],
             child: pageBody,
             navigationBar: IOSAppBar,
           )
